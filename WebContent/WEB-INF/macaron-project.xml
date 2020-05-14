@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<aop:aspectj-autoproxy />
+	<context:component-scan base-package="kr.co.macaronshop.mvc" />
+	<mvc:annotation-driven />
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+
+	<!-- fileUploadViewResolver -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	<!-- 파일 다운로드 -->
+	<bean id="viewResolver1" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+		<property name="order" value="0"></property>
+		<property name="basename" value="views" />
+	</bean>
+	
+	<bean id="tm" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- tiles 설정
+		UrlBasedViewResolver : Url 값을 입력 받아서 RequestDispatcher 로 요청을 처리한다. 
+		order : view 들이 여러개 있을때 handler 매핑 순위. 
+	 -->
+
+<!-- 	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"></property>
+		<property name="order" value="1"></property>
+	</bean>
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+		<list>
+			<value>/WEB-INF/tiles/tiles-definitions.xml</value>
+		</list>
+		</property>
+	</bean> -->
+	
+	
+	<tx:annotation-driven transaction-manager="tm"/>
+</beans>

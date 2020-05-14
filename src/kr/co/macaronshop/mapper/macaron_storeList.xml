@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- kr.co.ikosmo.mapper/myMember.xml -->
+<mapper namespace="showstore">
+	
+	<!--   rownum 조회된 순서대로 순번을 매긴다.  -->
+	<select id="list" resultType="storevo" parameterType="searchvo">
+		select * from (
+		select rownum r_num, a.* from
+		(
+			select * from store order by 1 desc
+		) a
+		) where r_num between #{begin} and #{end}
+	</select>
+	
+	<select id="totalCount" resultType="int" parameterType="searchvo">
+		select count(*) cnt from store
+		<if test="searchType != null">
+					<where>
+						<choose>
+							<when test="searchType == 1"> <!-- 가게 번호 -->
+								 stnum Like '%' || #{searchValue} || '%'
+							</when>
+							<when test="searchType == 2"> <!--  가게 이름   -->
+								 stsbname Like '%' || #{searchValue} || '%'
+							</when>
+							<when test="searchType == 3"> <!--  주소  -->
+								staddress Like '%' || #{searchValue} || '%'
+							</when>
+							<otherwise></otherwise>
+						</choose>
+					</where>
+				</if> order by stnum desc
+	</select>
+	
+	<select id="listsearch" resultType="storevo" parameterType="searchvo">
+		select * from (
+			select rownum r_num, a.* from
+			(
+				select * from store
+				<if test="searchValue != null">
+					<where>
+						<choose>
+							<when test="searchType == 1"> <!-- 여기는 변수명 그대로 맵핑이기에 # 넣으면 안된다. -->
+								stnum Like '%' || #{searchValue} || '%'
+							</when>
+							<when test="searchType == 2">
+								stsbname Like '%' || #{searchValue} || '%'
+							</when>
+							<when test="searchType == 3">
+								staddress Like '%' || #{searchValue} || '%'
+							</when>
+							<otherwise></otherwise>
+						</choose>
+					</where>
+				</if> order by stnum desc
+			) a
+		) where r_num between #{begin} and #{end}
+	
+	</select>
+
+	<select id="storeDetail" parameterType="int" resultType="storevo">
+		select stnum, stsbname, stname, stid, staddress, stphone, stimg from store where stnum = #{stnum}
+	</select>
+</mapper>
+
+
+
+
+
+

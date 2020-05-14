@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="menu">
+	<select parameterType="menuvo" id="ins">
+	insert into menu values(#{stnum},menu_foodnum_seq.nextVal,#{foodname},#{foodpay},#{foodimg	})
+	</select>
+	
+	<delete id="menudelet" parameterType="int">
+		DELETE FROM menu WHERE foodnum=#{foodnum}		
+	</delete>
+	<select id="menu1" parameterType="int" resultType="menuvo">
+		select foodnum,foodname,foodpay,foodimg from menu where foodnum=#{foodnum} 
+	</select>
+	<update id="update" parameterType="menuvo">
+		update menu set foodname =#{foodname}, foodpay=#{foodpay} , foodimg=#{foodimg} where foodnum =#{foodnum}
+	</update>
+</mapper>

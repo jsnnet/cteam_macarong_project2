@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="member">
+  	<select id="idChk" parameterType="String" resultType="int">
+		select count(*) cnt from member 
+		where memid=#{memid}
+	</select>
+	
+	<select id="idChk_adminid" parameterType="String" resultType="storevo">
+		select stnum ,stid from store where stid=#{stid}
+	</select>
+  	
+  </mapper>
