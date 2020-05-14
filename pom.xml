@@ -4,12 +4,18 @@
   <artifactId>cteam_macarong_project2</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+
     <properties>
         <!-- Jenkins -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <!-- Compilation Error -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
     </properties>
+
   <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>
