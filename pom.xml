@@ -28,6 +28,11 @@
     </resources>
     <plugins>
       <plugin>
+          <!-- Compilation Error
+          https://stackoverflow.com/questions/42525139/maven-build-compilation-error-failed-to-execute-goal-org-apache-maven-plugins
+          -->
+          <groupId>org.apache.maven.plugins</groupId>
+          <!-- -->
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.0</version>
         <configuration>
