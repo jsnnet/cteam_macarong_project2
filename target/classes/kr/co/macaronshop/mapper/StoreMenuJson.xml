@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="storeMenu">
+
+	<resultMap type="storevo" id="menuResultMap">
+		<id property="stnum" column="stnum" javaType="int" />
+		<collection property="menu" javaType="java.util.List"
+			resultMap="menuResultMap2" ofType="menuvo" />
+	</resultMap>
+	<resultMap type="menuvo" id="menuResultMap2">
+		<!-- <id property="stnum" column="stnum" javaType="int" /> -->
+		<result property="foodnum" column="foodnum" />
+		<result property="foodname" column="foodname"/>
+		<result property="foodpay" column="foodpay"/>
+		<result property="foodimg" column="foodimg"/>
+	</resultMap>
+	<select id="menuList" resultMap="menuResultMap" parameterType="int">
+		select s.stnum, m.foodnum, m.foodname, 
+		m.foodpay, m.foodimg from store s, menu m 
+		where s.stnum = m.stnum and s.stnum = #{stnum}
+	</select>
+
+</mapper>

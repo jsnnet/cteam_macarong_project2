@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- kr.co.ikosmo.config/config.xml -->
+<configuration>
+	<typeAliases>
+		<typeAlias type="kr.co.macaronshop.mvc.dto.StoreVO" alias="storevo" />
+		<typeAlias type="kr.co.macaronshop.mvc.dto.SearchVO" alias="searchvo" />
+		<typeAlias type="kr.co.macaronshop.mvc.dto.MenuVO" alias="menuvo" />
+		<typeAlias type="kr.co.macaronshop.mvc.dto.BasketVO" alias="basvo"/><!-- 장바구니 by 두선 -->
+		<typeAlias type="kr.co.macaronshop.mvc.dto.MemberVO" alias="memvo"/>
+		<typeAlias type="kr.co.macaronshop.mvc.dto.BasketListDTO" alias="basdto"/><!-- 장바구니 by 두선 -->
+		<typeAlias type="kr.co.macaronshop.mvc.dto.BasketCheckDTO" alias="baschk"/><!-- 장바구니 by 두선 -->
+		
+	</typeAliases>
+</configuration> 

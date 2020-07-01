@@ -4,18 +4,6 @@
   <artifactId>cteam_macarong_project2</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-
-    <properties>
-        <!-- Jenkins -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <!-- Compilation Error -->
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-
-    </properties>
-
   <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>
@@ -28,11 +16,6 @@
     </resources>
     <plugins>
       <plugin>
-          <!-- Compilation Error
-          https://stackoverflow.com/questions/42525139/maven-build-compilation-error-failed-to-execute-goal-org-apache-maven-plugins
-          -->
-          <groupId>org.apache.maven.plugins</groupId>
-          <!-- https://www.it-swarm.dev/ko/java/maven-%EB%B9%8C%EB%93%9C-%EC%BB%B4%ED%8C%8C%EC%9D%BC-%EC%98%A4%EB%A5%98-maven-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90%EC%84%9C-%EB%AA%A9%ED%91%9C-orgapachemavenplugins-mavencompilerplugin-31-compile-%EA%B8%B0%EB%B3%B8-%EC%BB%B4%ED%8C%8C%EC%9D%BC%EC%9D%84-%EC%8B%A4%ED%96%89%ED%95%98%EC%A7%80-%EB%AA%BB%ED%96%88%EC%8A%B5%EB%8B%88%EB%8B%A4/829726939/ -->
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.0</version>
         <configuration>

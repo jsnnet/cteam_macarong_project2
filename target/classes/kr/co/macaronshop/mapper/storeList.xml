@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="store">
+  <select id="list" resultType="storevo">
+  select stnum , stsbname , staddress 
+  , stphone , stimg from store
+  </select>
+  
+<!--   <select id="store_detail" resultType="msvo" parameterType="int">
+  select s.stnum , s.stsbname , s.staddress , s.stphone , s.stimg , m.foodnum , m.foodname 
+  , m.foodpay , m.foodimg  from store s , menu m where s.stnum = m.stnum and s.stnum = #{stnum}
+  </select> -->
+  
+  </mapper>

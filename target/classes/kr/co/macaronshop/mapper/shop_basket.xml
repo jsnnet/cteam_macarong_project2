@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cart">
+
+	<insert id="addBasket" parameterType="basvo">
+		insert into shop_basket
+		values(shop_basket_seq.nextVal,#{memnum},#{stnum},#{foodnum},#{basketpay},#{foodtotal},to_char(sysdate,'yyyy-MM-dd-HH:MI:SS'))
+	</insert>
+
+<!-- 	<select id="listBasket" resultType="basvo" parameterType="int"> -->
+<!-- 		select -->
+<!-- 		basketnum,memnum,stnum,foodnum,basketpay,foodtotal,basket_time from -->
+<!-- 		shop_basket where memnum = #{mbnum} -->
+<!-- 	</select> -->
+	
+	<!-- 장바구니 리스트 보여주기 수정 -->
+	<select id="listBasket2" resultType="basdto" parameterType="int">
+	select mu.foodimg,mu.foodname,mu.foodpay, sb.foodnum,
+	sb.foodtotal,sb.basketpay,sb.memnum,sb.basketnum,sb.stnum 
+from menu mu, shop_basket sb where mu.foodnum = sb.foodnum and sb.memnum=#{memnum}
+	</select> 
+	
+	<!-- 가격 합계 -->
+	<select id="totalPrice" resultType="basdto" parameterType="int">
+	select NVL(SUM(foodpay * foodtotal), 0) totalprice 
+	from shop_basket sb, menu mu 
+	where sb.foodnum = mu.foodnum and sb.memnum = #{memnum}
+	</select>
+	
+	<!-- session 에 올려줄 회원이름과 회원번호를 위해, 그리고 그 두 값을 회원 아이디로 구분해서 올려줄 것이다 -->
+	<select id="getMem" resultType="memvo" parameterType="String">
+	select memnum, memname from member where memid = #{memid}
+	</select>
+	
+	<!-- 장바구니 리스트 보기에서 삭제 -->
+	<delete id="delCart" parameterType="int">
+	delete from shop_basket where basketnum = #{basketnum}
+	</delete>
+	
+	<!-- 장바구니 상세보기에서 수정 -->
+	<resultMap type="storevo" id="stnameResultMap">
+	<id property="stnum" column="stnum" javaType="int"/>
+	<result property="stname" column="stname" javaType="String"/>
+	<collection property="menu" javaType="java.util.List"
+	resultMap="stnameResultMap2" ofType="menuvo"/>
+	</resultMap>
+	<resultMap type="menuvo" id="stnameResultMap2">
+	<result property="foodnum" column="foodnum"/>
+	<result property="foodname" column="foodname"/>
+	<result property="foodpay" column="foodpay"/>
+	<result property="foodimg" column="foodimg"/>
+	</resultMap>
+	<select id="ajaxList" resultMap="stnameResultMap" parameterType="int">
+	select st.stnum, st.stname,
+	mu.foodnum,mu.foodname,mu.foodpay,mu.foodimg
+	from store st, menu mu where st.stnum = mu.stnum
+	and st.stnum = #{stnum}
+	</select>
+
+	<!-- update foodnum, foodtotal, & foodpay 실시간 주문가격 update -->
+	<update id="updatePrice" parameterType="basdto">
+	update shop_basket set foodtotal = #{foodtotal}, basketpay = #{basketpay}
+	where memnum = #{memnum} and basketnum=#{basketnum}
+	</update>
+	
+	<!-- 수량이 5개 넘는지 확인 -->
+	<select id="chkFtotal" resultType="baschk" parameterType="int">
+	select rownum rnum, sb.memnum, sb.stnum, sb.foodnum, sb.foodtotal 
+	from shop_basket sb, menu mu, member mb 
+	where sb.stnum=mu.stnum and mu.foodnum=sb.foodnum 
+	and mb.memnum=#{memnum} and sb.foodnum=#{foodnum} and sb.stnum=#{stnum}
+	</select>	
+	
+	<!-- 선택 삭제 -->
+	<delete id="delSelected" parameterType="java.lang.Integer" statementType="PREPARED">
+	delete from shop_basket where basketnum = #{basketnum}
+	</delete>
+</mapper>
